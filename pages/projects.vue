@@ -9,10 +9,19 @@
       </p>
     </div>
 
+    <multiselect
+      @input="onSelection"
+      v-model="value"
+      :options="techTags"
+      :multiple="true"
+      :hideSelected="true"
+      :selectLabel="''"
+    />
+
     <main class="relative mb-auto">
       <div class="container py-12">
         <div class="flex flex-wrap -m-4">
-          <ProjectCard v-for="item in projectsData" :item="item" />
+          <ProjectCard v-for="(item, index) in projectsData" :item="item" :selectedTags="value" :key="index" />
         </div>
       </div>
     </main>
@@ -20,13 +29,54 @@
 </template>
 
 <script>
-  import projectsData from '@/data/projects';
+  import projectsDataInitial from '@/data/projects';
+  import Multiselect from 'vue-multiselect'
+
+  const techTags = projectsDataInitial
+    .map(x => x.tech)
+    .flat()
+    .filter((currentValue, index, arr) => (arr.indexOf(currentValue) === index))
 
   export default {
+    components: { Multiselect },
     data() {
       return {
-        projectsData,
+        value: [],
+        projectsData: projectsDataInitial,
+        techTags,
       };
+    },
+    methods: {
+      onSelection() {
+        if (this.value.length == 0) {
+          this.projectsData = projectsDataInitial;
+          return;
+        }
+
+        this.projectsData = projectsDataInitial.filter(project => project.tech.filter(x => this.value.includes(x)).length > 0);
+      }
     }
   }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style>
+[type='text']:focus {
+  --tw-ring-color: none;
+}
+.multiselect__option--highlight {
+  color: rgba(30, 64, 175, 1);
+  background-color: rgba(219, 234, 254, var(--tw-bg-opacity));
+  font-weight: 500;
+}
+.multiselect__tag {
+  color: white;
+  background-color: rgba(96, 165, 250, 1);;
+}
+.multiselect__tag-icon:hover {
+  background-color: #F98080;
+}
+.multiselect__content-wrapper {
+  box-shadow: 0px 1px 2px #0000006b;
+}
+</style>

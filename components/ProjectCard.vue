@@ -21,9 +21,13 @@
           {{ this.item.description }}
         </p>
 
-        <div class="flex flex-row justify-between" v-if="this.item.tech1 || this.item.tech2 || this.item.tech3">
+        <div class="flex flex-row justify-between">
           <div class="text-gray-400 text-sm font-extralight">
-            {{ this.item.tech1 }} • {{ this.item.tech2 }} • {{ this.item.tech3 }}
+            <template v-for="(tech, index) in item.tech">
+              <span :class="[selectedTags.includes(tech) ? 'bg-blue-400 text-white' : 'bg-blue-100 text-blue-800']" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                {{ tech }}
+              </span>
+            </template>
           </div>
         </div>
       </div>
@@ -33,6 +37,6 @@
 
 <script>
   export default {
-    props: ["item"],
+    props: ["item", "selectedTags"],
   }
 </script>

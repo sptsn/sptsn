@@ -5,12 +5,11 @@
         Projects
       </h1>
       <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">
-        Some of the projects I've build or been a part of.
+        Some of the projects I've built or been a part of.
       </p>
     </div>
 
     <multiselect
-      @input="onSelection"
       v-model="value"
       :options="techTags"
       :multiple="true"
@@ -21,7 +20,7 @@
     <main class="relative mb-auto">
       <div class="container py-12">
         <div class="flex flex-wrap -m-4">
-          <ProjectCard v-for="(item, index) in projectsData" :item="item" :selectedTags="value" :key="index" />
+          <ProjectCard :addTag="addTag" v-for="(item, index) in computedProjectsData" :item="item" :selectedTags="value" :key="index" />
         </div>
       </div>
     </main>
@@ -42,19 +41,26 @@
     data() {
       return {
         value: [],
-        projectsData: projectsDataInitial,
         techTags,
       };
     },
-    methods: {
-      onSelection() {
+    computed: {
+      computedProjectsData() {
         if (this.value.length == 0) {
-          this.projectsData = projectsDataInitial;
-          return;
+          return projectsDataInitial;
         }
 
-        this.projectsData = projectsDataInitial.filter(project => project.tech.filter(x => this.value.includes(x)).length > 0);
+        return projectsDataInitial.filter(project => project.tech.filter(x => this.value.includes(x)).length > 0);
       }
+    },
+    methods: {
+      addTag(tag) {
+        if (this.value.indexOf(tag) == -1) {
+          this.value.push(tag)
+        } else {
+          this.value = this.value.filter(x => x != tag)
+        }
+      },
     }
   }
 </script>

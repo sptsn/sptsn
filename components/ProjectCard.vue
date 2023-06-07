@@ -24,7 +24,7 @@
         <div class="flex flex-row justify-between">
           <div class="text-gray-400 text-sm font-extralight">
             <template v-for="(tech, index) in item.tech">
-              <span :class="[selectedTags.includes(tech) ? 'bg-blue-400 text-white' : 'bg-blue-100 text-blue-800']" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+              <span @click="addTag(tech)" :class="[selectedTags.includes(tech) ? 'bg-blue-400 text-white' : 'bg-blue-100 text-blue-800']" class="text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
                 {{ tech }}
               </span>
             </template>
@@ -37,6 +37,15 @@
 
 <script>
   export default {
-    props: ["item", "selectedTags"],
+    props: ["item", "selectedTags", "addTag"],
   }
 </script>
+
+<style>
+  span {
+    cursor: pointer;
+  }
+  span:hover {
+    filter: brightness(105%);
+  }
+</style>

@@ -9,7 +9,8 @@ const siteMetaInfo = {
   githubUser: "sptsn",
   linkedin: 'https://www.linkedin.com/in/alexander-spitsyn/',
   instagram: 'https://instagram.com/sptsn',
-  telegram: 'https://t.me/sptsn'
+  telegram: 'https://t.me/sptsn',
+  description: "Alexander Spitsyn's site"
 }
 
 export default siteMetaInfo;

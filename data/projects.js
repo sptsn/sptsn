@@ -65,7 +65,7 @@ const projectsData = [
     title: 'InStat',
     href: 'https://instatscout.com/',
     description: 'Sport statistics and analytics service',
-    tech: ['Ruby on Rails', 'Ruby', 'react']
+    tech: ['Ruby on Rails', 'Ruby', 'React']
   },
   {
     title: 'WunderText',

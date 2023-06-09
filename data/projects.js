@@ -90,7 +90,51 @@ const projectsData = [
     href: 'https://business.sbermarket.ru/',
     description: 'Currently working here as a team lead',
     tech: ['Team Lead', 'Management', 'Ruby', 'Ruby on Rails']
-  }
+  },
+  {
+    title: 'Trading app for Fulgur Ventures',
+    description: 'CLI app for interacting with crypto platforms',
+    href: 'https://fulgur.ventures/',
+    tech: ['Ruby', 'dry.rb', 'crypto']
+  },
+  {
+    title: 'VS today',
+    href: 'https://vs.today',
+    description: 'App for offline team games',
+    tech: ['Ruby', 'Ruby on Rails', 'Postgresql']
+  },
+  {
+    title: 'Telegram bot quilok',
+    draft: true
+  },
+  {
+    title: 'dictionary api gem',
+    draft: true
+  },
+  {
+    title: 'Mokka (ex Revo)',
+    href: 'https://mokka.ru/',
+    description: 'Fintech service for installments and loans',
+    tech: ['Ruby', 'Ruby on Rails', 'Postgresql']
+  },
+  {
+    title: 'Prophotos',
+    href: 'https://prophotos.ru/',
+    description: 'Magazine about photography and photographic equipment',
+    tech: ['Ruby', 'Ruby on Rails', 'Postgresql']
+  },
+  {
+    title: 'Fotoshkola',
+    href: 'https://fotoshkola.net/',
+    description: 'Online school for photographers',
+    tech: ['Ruby', 'Ruby on Rails', 'Postgresql']
+  },
+  {
+    title: 'LendingOne',
+    href: 'https://lendingone.com/',
+    description: 'US-based service providing Real Estate loans.',
+    tech: ['Ruby', 'Ruby on Rails', 'React', 'AWS', 'Postgresql']
+  },
 ];
 
 export default projectsData;

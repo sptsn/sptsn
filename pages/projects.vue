@@ -28,8 +28,10 @@
 </template>
 
 <script>
-  import projectsDataInitial from '@/data/projects';
+  import projectsData from '@/data/projects';
   import Multiselect from 'vue-multiselect'
+
+  const projectsDataInitial = projectsData.filter(x => x.draft != true)
 
   const techTags = projectsDataInitial
     .map(x => x.tech)

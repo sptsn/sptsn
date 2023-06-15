@@ -9,32 +9,90 @@
       </p>
     </div>
 
+    <div class="mb-10">
+      <input v-model="value" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
+    </div>
+
+    <template v-if="loading">
+      <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">Loading...</p>
+    </template>
+
     <div class="space-y-16 mx-auto max-w-7xl">
-      <BlogItem v-for="(article, index) in articles" :article="article" :key="index" />
+      <template v-if="articles.length > 0">
+        <BlogItem v-for="article in articles" :article="article" :key="generateKey()" />
+      </template>
+      <p v-else class="text-lg leading-7 text-gray-500 dark:text-gray-400">Nothing found</p>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    async asyncData({ $content, params }) {
-      const articles = await $content("")
-        .only([
-          "title",
-          "description",
-          "img",
-          "slug",
-          "tag",
-          "author",
-          "date",
-          "draft",
-        ])
-        .sortBy("date", "asc")
-        .fetch();
+  import _ from 'lodash';
 
+  export default {
+    data({ $content, params }) {
       return {
-        articles,
+        articles: [],
+        value: null,
+        loading: true,
       };
+    },
+    created() {
+      this.loadArticles();
+    },
+    watch: {
+      value: _.debounce(function(newValue) {
+        this.loadArticles(newValue)
+      }, 500)
+    },
+    methods: {
+      generateKey(){
+        return (Math.random() + 1).toString(36).substring(2);
+      },
+      async loadArticles(query = null) {
+        const data = {
+          _source: ["title", "slug", "date", "description"]
+        };
+
+        if (query) {
+          data.query = {
+            multi_match: {
+              query: query,
+              fields: ['content']
+            }
+          };
+          data.highlight = {
+            fields: {
+              content: {
+                number_of_fragments: 1
+              },
+            },
+            tags_schema: "styled",
+          };
+        }
+
+        const result = await fetch('https://sptsn.ru/elastic/articles/_search', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              'Access-Control-Allow-Headers': 'Content-Type',
+              "Access-Control-Allow-Methods": "OPTIONS"
+            },
+            body: JSON.stringify(data)
+          })
+          .then(res => res.json())
+          .then(res => res.hits.hits);
+
+        this.articles = result;
+        this.loading = false;
+      },
     },
   }
 </script>
+
+<style>
+.hlt1 {
+  font-weight: 700;
+  color: rgb(236 72 153)
+}
+</style>

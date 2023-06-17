@@ -17,7 +17,10 @@
       <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">Loading...</p>
     </template>
 
-    <div class="space-y-16 mx-auto max-w-7xl">
+    <span v-if="error" class="bg-red-100 text-red-800 mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+      {{ error }}
+    </span>
+    <div v-else class="space-y-16 mx-auto max-w-7xl">
       <template v-if="articles.length > 0">
         <BlogItem v-for="article in articles" :article="article" :key="generateKey()" />
       </template>
@@ -35,6 +38,7 @@
         articles: [],
         value: null,
         loading: true,
+        error: null,
       };
     },
     created() {
@@ -51,7 +55,7 @@
       },
       async loadArticles(query = null) {
         const data = {
-          _source: ["title", "slug", "date", "description"]
+          _source: ["title", "slug", "date", "description", "tags"]
         };
 
         if (query) {
@@ -81,7 +85,8 @@
             body: JSON.stringify(data)
           })
           .then(res => res.json())
-          .then(res => res.hits.hits);
+          .then(res => res.hits.hits)
+          .catch(err => this.error = err);
 
         this.articles = result;
         this.loading = false;

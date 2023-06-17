@@ -1,25 +1,25 @@
 <template>
   <NuxtLink :to="{ name: 'blog-slug', params: { slug: source.slug } }">
-    <article class="relative flex flex-col max-w-3xl lg:ml-auto xl:max-w-none p-5 mb-5 rounded-md">
-      <div class="flex flex-row">
-        <div class="basis-4/5">
-          <h3 class="mb-4 text-4xl text-slate-700 tracking-tight font-bold dark:text-slate-200">
-              {{ source.title }}
-          </h3>
-        </div>
-        <div class="basis-1/5 h-8 bg-indigo-500 text-white py-1 px-2 rounded-md font-semibold text-center">
+    <article class="blog-item flex flex-col p-5 mb-5 rounded-md">
+      <div class="flex flex-row justify-between">
+        <h3 class="mb-4 text-4xl text-slate-700 tracking-tight font-bold dark:text-slate-200">
+          {{ source.title }}
+        </h3>
+        <div class="h-fit bg-indigo-500 text-white py-1 px-2 rounded-md font-semibold text-center">
           {{ formatDate(source.date) }}
         </div>
       </div>
 
-      <div class="prose prose-slate dark:prose-dark">
-        <template v-if="this.highlight">
-          <pre class="language-html" v-html="highlight.content[0]"></pre>
-        </template>
+      <pre v-if="this.highlight" class="language-html" v-html="highlight.content[0]"></pre>
 
-        <p class="text-gray-500" v-else>
-          {{ source.description }}
-        </p>
+      <p v-else class="mb-4 text-gray-500">
+        {{ source.description }}
+      </p>
+
+      <div v-if="source.tags" class="flex flex-row">
+        <span v-for="tag in source.tags" class="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
+          {{ tag }}
+        </span>
       </div>
     </article>
   </NuxtLink>
@@ -44,7 +44,7 @@
 </script>
 
 <style>
-article:hover {
+.blog-item:hover {
   background-color: rgb(241 245 249);
   cursor: pointer;
 }

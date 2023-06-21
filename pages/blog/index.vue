@@ -13,19 +13,14 @@
       <input v-model="value" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Search">
     </div>
 
-    <template v-if="loading">
-      <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">Loading...</p>
-    </template>
-
     <span v-if="error" class="bg-red-100 text-red-800 mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
       {{ error }}
     </span>
-    <div v-else class="space-y-16 mx-auto max-w-7xl">
-      <template v-if="articles.length > 0">
-        <BlogItem v-for="article in articles" :article="article" :key="generateKey()" />
-      </template>
+    <template v-else>
+      <Spinner v-if="loading" class="flex justify-center" />
+      <BlogItem v-else-if="articles.length > 0" v-for="article in articles" :article="article" :key="generateKey()" />
       <p v-else class="text-lg leading-7 text-gray-500 dark:text-gray-400">Nothing found</p>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -46,6 +41,7 @@
     },
     watch: {
       value: _.debounce(function(newValue) {
+        this.loading = true;
         this.loadArticles(newValue)
       }, 500)
     },
@@ -55,7 +51,8 @@
       },
       async loadArticles(query = null) {
         const data = {
-          _source: ["title", "slug", "date", "description", "tags"]
+          _source: ["title", "slug", "date", "description", "tags"],
+          sort: [{ "date": "desc" }],
         };
 
         if (query) {

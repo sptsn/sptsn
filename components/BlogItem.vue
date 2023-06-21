@@ -1,6 +1,6 @@
 <template>
   <NuxtLink :to="{ name: 'blog-slug', params: { slug: source.slug } }">
-    <article class="blog-item flex flex-col p-5 mb-5 rounded-md">
+    <div class="blog-item flex flex-col p-5 mb-5 rounded-md">
       <div class="flex flex-row justify-between">
         <h3 class="mb-4 text-4xl text-slate-700 tracking-tight font-bold dark:text-slate-200">
           {{ source.title }}
@@ -17,16 +17,19 @@
       </p>
 
       <div v-if="source.tags" class="flex flex-row">
-        <span v-for="tag in source.tags" class="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
-          {{ tag }}
-        </span>
+        <Badge v-for="tag in source.tags" :value="tag" color="indigo" />
       </div>
-    </article>
+    </div>
   </NuxtLink>
 </template>
 
 <script>
+  import Badge from '@/components/shared/Badge.vue';
+
   export default {
+    components: {
+      Badge,
+    },
     props: ['article'],
     methods: {
       formatDate(date) {

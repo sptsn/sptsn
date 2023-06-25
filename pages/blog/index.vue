@@ -26,8 +26,12 @@
 
 <script>
   import _ from 'lodash';
+  import Spinner from '@/components/shared/Spinner.vue';
 
   export default {
+    components: {
+      Spinner,
+    },
     data({ $content, params }) {
       return {
         articles: [],

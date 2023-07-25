@@ -18,7 +18,10 @@
     </span>
     <template v-else>
       <Spinner v-if="loading" class="flex justify-center" />
-      <BlogItem v-else-if="articles.length > 0" v-for="article in articles" :article="article" :key="generateKey()" />
+      <template v-else-if="articles.length > 0">
+        <p class="mb-5 text-lg leading-7 text-gray-500 dark:text-gray-400">Found {{ total }} result(s)</p>
+        <BlogItem v-for="article in articles" :article="article" :key="generateKey()" />
+      </template>
       <p v-else class="text-lg leading-7 text-gray-500 dark:text-gray-400">Nothing found</p>
     </template>
   </div>
@@ -38,6 +41,7 @@
         value: null,
         loading: true,
         error: null,
+        total: 0,
       };
     },
     created() {
@@ -54,42 +58,23 @@
         return (Math.random() + 1).toString(36).substring(2);
       },
       async loadArticles(query = null) {
-        const data = {
-          _source: ["title", "slug", "date", "description", "tags"],
-          sort: [{ "date": "desc" }],
-        };
-
+        let url = 'https://sptsn.ru/api/articles'
+        // let url = 'http://localhost:8080/articles'
         if (query) {
-          data.query = {
-            multi_match: {
-              query: query,
-              fields: ['content']
-            }
-          };
-          data.highlight = {
-            fields: {
-              content: {
-                number_of_fragments: 1
-              },
-            },
-            tags_schema: "styled",
-          };
+          url += `?q=${query}`
         }
-
-        const result = await fetch('https://sptsn.ru/elastic/articles/_search', {
-            method: "POST",
+        const result = await fetch(url, {
             headers: {
               "Content-Type": "application/json",
+              'Access-Control-Allow-Origin': '*',
               'Access-Control-Allow-Headers': 'Content-Type',
               "Access-Control-Allow-Methods": "OPTIONS"
             },
-            body: JSON.stringify(data)
           })
           .then(res => res.json())
-          .then(res => res.hits.hits)
           .catch(err => this.error = err);
-
-        this.articles = result;
+        this.articles = result.results;
+        this.total = result.total;
         this.loading = false;
       },
     },

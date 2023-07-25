@@ -60,7 +60,12 @@
             href: siteMetaInfo.telegram,
             title: 'telegram',
             src: '/telegram.png'
-          }
+          },
+          {
+            href: siteMetaInfo.vk,
+            title: 'vk',
+            src: '/vk.png'
+          },
         ]
       };
     }

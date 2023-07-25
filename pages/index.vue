@@ -18,7 +18,6 @@ import AuthorCard from '../components/AuthorCard.vue';
 import AuthorIntro from '../components/AuthorIntro.vue';
 import Expertise from '../components/Expertise.vue';
 import TimeLine from '../components/TimeLine.vue';
-import siteMetaInfo from "@/data/sitemetainfo";
 
 export default {
   name: "IndexPage",

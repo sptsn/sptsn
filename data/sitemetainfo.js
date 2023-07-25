@@ -10,6 +10,7 @@ const siteMetaInfo = {
   linkedin: 'https://www.linkedin.com/in/alexander-spitsyn/',
   instagram: 'https://instagram.com/sptsn',
   telegram: 'https://t.me/sptsn',
+  vk: 'https://vk.com/id18829868',
   description: "Alexander Spitsyn's site"
 }
 

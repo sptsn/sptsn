@@ -28,7 +28,7 @@
         },
       })
       .then(res => res.json())
-      .then(res => res[0])
+      .then(res => res['results'][0])
       .catch(err => this.error = err);
 
       console.log(article)

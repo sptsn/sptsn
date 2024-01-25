@@ -16,30 +16,22 @@
 <script>
   export default {
     async asyncData({ $content, params }) {
-      const elasticUrl = "https://sptsn.ru/elastic/articles/_search?pretty"
-      const data = {
-        query: {
-          match: {
-            slug: params.slug
-          }
-        }
-      }
-      const parameters = {
-        method: "POST",
+      // const url = `http://localhost:8080/articles/${params.slug}`
+      const url = `https://sptsn.ru/api/articles/${params.slug}`
+      console.log(url)
+      const article = await fetch(url, {
         headers: {
           "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          "Access-Control-Allow-Methods": "OPTIONS"
         },
-        body: JSON.stringify(data)
-      }
-      const article = await fetch(elasticUrl, parameters)
-        .then(res => res.json())
-        .then(res => res.hits.hits.map(x => x._source))
-        .then(res => res[0]);
+      })
+      .then(res => res.json())
+      .then(res => res[0])
+      .catch(err => this.error = err);
 
-      console.log('slug:', params.slug)
-      console.log('article:', article)
-
-
+      console.log(article)
       // const article = await $content("", params.slug).fetch();
       return {
         article,

@@ -9,7 +9,7 @@
       </p>
     </div>
 
-    <multiselect
+    <VueMultiselect
       v-model="value"
       :options="techTags"
       :multiple="true"
@@ -20,6 +20,7 @@
     <main class="relative mb-auto">
       <div class="container py-12">
         <div class="flex flex-wrap -m-4">
+          <!-- <li v-for="item in computedProjectsData">{{ item.title }}</li> -->
           <ProjectCard :addTag="addTag" v-for="(item, index) in computedProjectsData" :item="item" :selectedTags="value" :key="index" />
         </div>
       </div>
@@ -29,7 +30,7 @@
 
 <script>
   import projectsData from '@/data/projects';
-  import Multiselect from 'vue-multiselect'
+  import VueMultiselect from 'vue-multiselect'
 
   const projectsDataInitial = projectsData.filter(x => x.draft != true)
 
@@ -39,7 +40,7 @@
     .filter((currentValue, index, arr) => (arr.indexOf(currentValue) === index))
 
   export default {
-    components: { Multiselect },
+    components: { VueMultiselect },
     data() {
       return {
         value: [],
@@ -67,7 +68,7 @@
   }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style>
 [type='text']:focus {
   --tw-ring-color: none;

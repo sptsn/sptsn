@@ -25,7 +25,7 @@
 </script>
 
 <style>
-.nuxt-link-exact-active {
+.router-link-active {
   @apply text-indigo-600;
 }
 </style>

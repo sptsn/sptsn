@@ -5,7 +5,8 @@
     </h3>
     <div class="mt-2">
       <ul class="flex flex-wrap gap-3 items-center">
-        <li class="flex items-center" v-for="item in liItems" v-html="item">
+        <li class="flex items-center" v-for="item in liItems">
+          <img class="h-10 w-10" :src=item />
         </li>
       </ul>
     </div>
@@ -16,9 +17,9 @@
   const items = ['ruby.svg', 'rails.svg', 'postgresql.svg', 'sql.svg', 'vuejs.svg', 'nuxt.svg', 'js.svg', 'docker.svg', 'kubernetes.svg', 'git.svg', 'graphql.svg', 'nginx.svg'];
 
   export default {
-    data: () => {
+    data() {
       return {
-        liItems: items.map(name => require(`@/assets/devicon/${name}?raw`))
+        liItems: items.map(name => `/devicon/${name}?inline`)
       };
     },
   }

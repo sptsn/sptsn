@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="{ name: 'blog-slug', params: { slug: article.slug } }">
+  <NuxtLink :to="url">
     <div class="blog-item flex flex-col p-5 mb-5 rounded-md">
       <div class="flex flex-row justify-between">
         <h3 class="mb-4 text-4xl text-slate-700 tracking-tight font-bold dark:text-slate-200">
@@ -26,13 +26,18 @@
 </template>
 
 <script>
-  import Badge from '@/components/shared/Badge.vue';
+  import Badge from './shared/Badge.vue';
 
   export default {
     components: {
       Badge,
     },
     props: ['article'],
+    data(){
+      return {
+        url: `/blog/${this.article.slug}`
+      }
+    },
     methods: {
       formatDate(date) {
         const options = { year: "numeric", month: "long", day: "numeric" };

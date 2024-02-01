@@ -1,7 +1,7 @@
 <template>
   <div class="md:fixed">
     <div class="md:block flex justify-center items-center">
-      <nuxt-img
+      <img
         :src="siteMetaInfo.author_image"
         loading="lazy"
         alt="me"
@@ -22,15 +22,15 @@
 
     <div class="mx-7 hidden md:block">
       <div class="my-2 text-gray-600 flex dark:text-blue-100">
-        <Mail />
+        <img class="h-10 w-10" src="/icon/mail.svg"/>
         <a :href="`mailto:${siteMetaInfo.email}`"> {{ siteMetaInfo.email }}</a>
       </div>
       <div class="my-2 text-gray-600 flex dark:text-blue-100">
-        <Glob />
+        <img class="h-10 w-10" src="/icon/glob.svg"/>
         <p>{{ siteMetaInfo.location }}</p>
       </div>
       <div class="my-2 text-gray-600 flex dark:text-blue-200">
-        <Github />
+        <img class="h-10 w-10" src="/icon/github_new.svg"/>
         <a :href="siteMetaInfo.github"> {{ siteMetaInfo.githubUser }}</a>
       </div>
     </div>
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import Mail from "../assets/icon/mail.svg?inline";
-import Glob from "../assets/icon/glob.svg?inline";
-import Github from "../assets/icon/github_new.svg?inline";
+// import Mail from "../assets/icon/mail.svg?inline";
+// import Glob from "../assets/icon/glob.svg?inline";
+// import Github from "../assets/icon/github_new.svg?inline";
 import siteMetaInfo from "@/data/sitemetainfo";
 export default {
-  components: { Mail, Glob, Github },
+  // components: { Mail },
   data: () => {
     return {
       siteMetaInfo,

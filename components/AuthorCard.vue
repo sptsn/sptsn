@@ -22,15 +22,15 @@
 
     <div class="mx-7 hidden md:block">
       <div class="my-2 text-gray-600 flex dark:text-blue-100">
-        <img class="h-10 w-10" src="/icon/mail.svg"/>
+        <Mail/>
         <a :href="`mailto:${siteMetaInfo.email}`"> {{ siteMetaInfo.email }}</a>
       </div>
       <div class="my-2 text-gray-600 flex dark:text-blue-100">
-        <img class="h-10 w-10" src="/icon/glob.svg"/>
+        <Glob/>
         <p>{{ siteMetaInfo.location }}</p>
       </div>
       <div class="my-2 text-gray-600 flex dark:text-blue-200">
-        <img class="h-10 w-10" src="/icon/github_new.svg"/>
+        <Github/>
         <a :href="siteMetaInfo.github"> {{ siteMetaInfo.githubUser }}</a>
       </div>
     </div>
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-// import Mail from "../assets/icon/mail.svg?inline";
-// import Glob from "../assets/icon/glob.svg?inline";
-// import Github from "../assets/icon/github_new.svg?inline";
+import Mail from "~/components/icons/Mail.vue";
+import Glob from "~/components/icons/Glob.vue";
+import Github from "~/components/icons/Github.vue";
 import siteMetaInfo from "@/data/sitemetainfo";
 export default {
-  // components: { Mail },
+  components: { Mail, Glob, Github },
   data: () => {
     return {
       siteMetaInfo,

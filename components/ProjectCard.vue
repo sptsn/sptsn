@@ -3,17 +3,17 @@
     <div class="project-card h-full p-4 overflow-hidden border-2 border-gray-200 rounded-md border-opacity-60 dark:border-gray-700">
       <div class="flex flex-row justify-between">
         <h2 class="text-2xl font-bold leading-8 tracking-tight mb-3">
-          {{ this.item.title }}
+          {{ item.title }}
         </h2>
 
-        <a class="external-link text-sm text-gray-500 transition hover:text-gray-600" target="_blank" rel="noopener noreferrer" :href="this.item.href">
+        <a class="external-link text-sm text-gray-500 transition hover:text-gray-600" target="_blank" rel="noopener noreferrer" :href="item.href">
           <span class="sr-only"></span>
           <img class="w-6 h-6" src="/external.png"/>
         </a>
       </div>
 
       <p class="prose text-gray-500 max-w-none dark:text-gray-400 mb-3">
-        {{ this.item.description }}
+        {{ item.description }}
       </p>
 
       <div class="text-gray-400 text-sm font-extralight">
